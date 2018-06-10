@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block a %}
+    <section class="container">
+        <div class="content-wrap">
+            <div class="content">
+                <div class="title">
+                    <h3 style="line-height: 1.3">博客列表</h3>
+                </div>
+               {% for post in post_list %}
+                <article class="excerpt excerpt-1" style="">
+                <a class="focus" href="#" title="{{ post.title }}" target="_blank"><img class="thumb"
+                                                                                       data-original="/{{ post.cover }}"
+                                                                                       src="/{{ post.cover }}"
+                                                                                       alt="{{ post.title }}"
+                                                                                       style="display: inline;"></a>
+                <header><a class="cat" href="#" title="知奇课堂-博客">知奇课堂-博客<i></i></a>
+                    <h2><a href="#" title="{{ post.title }}" target="_blank">{{ post.title }}</a>
+                    </h2>
+                </header>
+                <p class="meta">
+                    <time class="time"><i class="glyphicon glyphicon-time"></i> {{ post.pub_date  }}</time>
+                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i>{{ post.views }}</span> <a class="comment"
+                                                                                                   href="##comment"
+                                                                                                   title="评论"
+                                                                                                   target="_blank"><i
+                        class="glyphicon glyphicon-comment"></i>{{ post.comment_set.count }}</a>
+                </p>
+                <p class="note">{{ post.content }}</p>
+            </article>
+
+            {% endfor %}
+{#            {% include '_pagination.html' %}#}
+
+
+
+                <nav class="pagination" style="display: none;">
+                    <ul>
+                        <li class="prev-page"></li>
+                        <li class="active"><span>1</span></li>
+                        <li><a href="?page=2">2</a></li>
+                        <li class="next-page"><a href="?page=2">下一页</a></li>
+                        <li><span>共 2 页</span></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <aside class="sidebar">
+            <div class="fixed">
+            {#  搜索               #}
+                {% include 'search.html' %}
+            {# 搜索结束           #}
+                <div class="widget widget_sentence">
+                    <h3>标签云</h3>
+                    <div class="widget-sentence-content">
+                        <ul class="plinks ptags">
+
+                            {% for tag_message in tag_message_list %}
+                                <li><a href="{% url 'blog:tags' tag_message.id %}" title="{{ tag_message.name }}" draggable="false">{{ tag_message.name }}
+                                    <span class="badge">{{ tag_message.count }}</span></a>
+                                </li>
+                            {% endfor a %}
+
+{#                             {% for tag_message in tag_message_list %}#}
+{#                                <li><a href="{% url 'blog:category' tag_message.id %}" title="{{ tag_message.name }}" draggable="false">{{ tag_message.name }}#}
+{#                                    <span class="badge">{{ tag_message.count }}</span></a>#}
+{#                                </li>#}
+{#                            {% endfor a %}#}
+
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="widget widget_hot">
+                <h3>最新评论文章</h3>
+                <ul>
+
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+                    <li><a title="知奇课堂-Python开发课程" href="#"><span class="thumbnail">
+<img class="thumb" data-original="images/201610181739277776.jpg" src="images/201610181739277776.jpg"
+     alt="知奇课堂-Python开发课程" style="display: block;">
+</span><span class="text">知奇课堂-Python开发课程</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+2016-11-01
+</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span></a></li>
+
+                </ul>
+            </div>
+
+        </aside>
+    </section>
+
+
+{% endblock a %}

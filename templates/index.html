@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block a %}
+<section class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <!-- banner 开始 -->
+            <div id="focusslide" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+
+                    {% for banner in banner_list %}
+                        {% if banner.is_active %}
+                            <li data-target="#focusslide" data-slide-to="{{ banner.idx }}" class="active"></li>
+                        {% else %}
+                            <li data-target="#focusslide" data-slide-to="{{ banner.idx }}"></li>
+                        {% endif %}
+                    {% endfor %}
+
+                </ol>
+                <div class="carousel-inner" role="listbox">
+
+                    {% for banner in banner_list %}
+                        {% if banner.is_active %}
+                            <div class="item active">
+                                <a href="{{ banner.link_url }}" target="_blank" title="{{ banner.title }}">
+                                    <img src="/{{ banner.cover }}" alt="{{ banner.title }}" class="img-responsive"></a>
+                            </div>
+                        {% else %}
+                            <div class="item">
+                                <a href="{{ banner.link_url }}" target="_blank" title="{{ banner.title }}">
+                                    <img src="/{{ banner.cover }}" alt="{{ banner.title }}" class="img-responsive"></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+                <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">上一个</span> </a>
+                <a class="right carousel-control" href="#focusslide" role="button" data-slide="next" rel="nofollow">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">下一个</span> </a>
+            </div>
+
+            <!-- banner 结束 -->
+
+            {#     推介博客       #}
+            {% for recomment_list in recomment_list%}
+
+                <article class="excerpt-minic excerpt-minic-index">
+                    <h2><span class="red">【推荐】</span><a target="_blank" href="{% url 'blog:show_x' recomment_list.id %}" title={{ recomment_list.title }}>{{recomment_list.title }}</a>
+                    </h2>
+                    <p class="note">{{ recomment_list.content }}</p>
+                </article>
+            {% endfor %}
+            {# 推介博客结束           #}
+
+            {#   博客分类     #}
+            <div class="title">
+                <h3>最新发布</h3>
+                <div class="more">
+                    {% for BlogCategory_list in BlogCategory_list %}
+                    <a href="{% url 'blog:category' BlogCategory_list.id %}" title={{ BlogCategory_list.name }}>{{ BlogCategory_list.name }}</a>
+
+                    {% endfor %}
+                </div>
+            </div>
+            {#     博客分类结束   #}
+
+            {# 最新发布       #}
+            {% for post in post_list.object_list %}
+                <article class="excerpt excerpt-1" style="">
+                <a class="focus" href="{% url 'blog:show_x' post.id %}" title="{{ post.title }}" target="_blank"><img class="thumb"
+                                                                                       data-original="/{{ post.cover }}"
+                                                                                       src="/{{ post.cover }}"
+                                                                                       alt="{{ post.title }}"
+                                                                                       style="display: inline;"></a>
+                <header><a class="cat" href="{% url 'blog:show_x' post.id %}" title="知奇课堂-博客">知奇课堂-博客<i></i></a>
+                    <h2><a href="{% url 'blog:show_x' post.id %}" title="{{ post.title }}" target="_blank">{{ post.title }}</a>
+                    </h2>
+                </header>
+                <p class="meta">
+                    <time class="time"><i class="glyphicon glyphicon-time"></i> {{ post.pub_date  }}</time>
+                    <span class="views"><i class="glyphicon glyphicon-eye-open"></i>{{ post.views }}</span> <a class="comment"
+                                                                                                   href="##comment"
+                                                                                                   title="评论"
+                                                                                                   target="_blank"><i
+                        class="glyphicon glyphicon-comment"></i>{{ post.comment_set.count }}</a>
+                </p>
+                <p class="note">{{ post.content }}</p>
+            </article>
+
+            {% endfor %}
+            {% include '_pagination.html' %}
+        {# 最新发布结束       #}
+
+
+            <nav class="pagination" style="display: none;">
+                <ul>
+                    <li class="prev-page"></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="?page=2">2</a></li>
+                    <li class="next-page"><a href="?page=2">下一页</a></li>
+                    <li><span>共 2 页</span></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <aside class="sidebar">
+        <div class="fixed">
+            <div class="widget widget-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab"
+                                                              data-toggle="tab">统计信息</a></li>
+                    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab"
+                                               data-toggle="tab">联系站长</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane contact active" id="notice">
+                        <h2>日志总数:
+                            888篇
+                        </h2>
+                        <h2>网站运行:
+                            <span id="sitetime">88天 </span></h2>
+                    </div>
+                    <div role="tabpanel" class="tab-pane contact" id="contact">
+                        <h2>QQ:
+                            <a href="" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="bottom"
+                               title="" data-original-title="QQ:"></a>
+                        </h2>
+                        <h2>Email:
+                            <a href="#" target="_blank" data-toggle="tooltip" rel="nofollow" data-placement="bottom"
+                               title="" data-original-title="#"></a></h2>
+                    </div>
+                </div>
+            </div>
+            {#  搜索框开始  --------------------------        #}
+            {% include 'search.html' %}
+
+{#            <div class="widget widget_search">#}
+{#                <form class="navbar-form" action="{% url 'blog:list' %}" method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <div class="input-group">#}
+{#                        <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字"#}
+{#                               maxlength="15" autocomplete="off">#}
+{#                        <span class="input-group-btn">#}
+{#		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>#}
+{#		</span></div>#}
+{#                </form>#}
+{#            </div>#}
+
+            {#  搜索框结束          #}
+        </div>
+        <div class="widget widget_hot">
+            <h3>最新评论文章</h3>
+            {# 最新评论 ----------------------#}
+
+            <ul>
+                {% for post in new_commit_list %}
+                <li><a title={{ post.title }} href="#"><span class="thumbnail">
+				<img class="thumb" data-original="{{ post.cover }}"
+                     src="{{ post.cover }}"
+                     alt="{{ post.title }}" style="display: block;">
+			</span><span class="text">{{ post.title }}</span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+				{{ post.pub_date }}
+			</span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i>{{ post.views }}</span></a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        {#最新评论结束---------------------------#}
+
+        <div class="widget widget_sentence">
+            <h3>友情链接</h3>
+            <div class="widget-sentence-link">
+                {% for i in FriendlyLink_list %}
+                    <a href="#" title={{ i.title }} target="_blank">{{ i.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </aside>
+</section>
+{% endblock a %}
